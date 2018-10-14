@@ -3,19 +3,18 @@
 Egenutviklet applikasjon (eller prototype) med tilhørende dokumentasjon: teller 100% av karakteren i emnet. Applikasjonen skal være utviklet, og være vedlikeholdbar, i et DevOps- miljø i skyen. Kildekode, og annen dokumentasjon, 
 skal gjøres tilgjengelig for allmenheten.
 
-
-
 ## Krav
 
 * Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i offentlige GitHib repositories
 * Det skal lages to repositories, ett til infrastruktur (concourse + terraform) og ett for applikasjonen
+* Pipeline må implementeres med Heroku pipelines 
 
 ## Krav til applikasjonen (20%)
 
 Applikasjonen er ikke det viktigste elementet, men må være innholdsrik nok demonstrere DevOps ferdigheter
 
 * Applikasjonen skal bestå av både kode og database. Lag gjerne et REST API med CRUD kapabilitet av noe slag  
-* Applikasjonen skal bygge med Maven eller Gradle
+* Applikasjonen skal bygge med Maven 
 * Applikasjonen skal ha enhetstester
 * Dersom noen av testene feiler, skal maven- eller gradle bygget også feile 
 
@@ -47,19 +46,42 @@ Det skal eksistere en CI/CDpipeline for applikasjonen som tilfredstiller kravene
 * Repeterbar deployment prosess
 * Smoke tests 
 
-### Dokumentasjon (20%)
+## Dokumentasjon (20%)
 
 Det må være mulig for foreleser å følge instruksjoner i README filer for å få opp applikasjon og pipeline. 
 
 # Praktisk 
 
-
 ## Tekniske krav
 
-* Pipeline skal implementeres med Concourse
-* Det vil være enklest for dere å implementere løsningen basert på Heroku, siden øvingene vil gi en rask start. Men, dere  står fritt til å velge andre Cloud leverandører, så lenge øvrige krav opprettholdes
-Som en del av prosessen vil jeg comitte kode
 
 ## Overlevering 
 
-* Under evalueringen vil jeg 
+Under evalueringen vil jeg gjøre følgende; (Subject to change)
+
+Installasjon 
+
+* Lage git fork av dine repositories 
+* Kjøre mvn install i <app repo>
+* Sette miljøvariable i henhold til README filer i <infra repo>/README.md
+* Kjøre terraform apply i <infra repo>/terraform/ mappen 
+* Lage deploy keys for mine fork repositories
+* Lage credentials.yml med deploy keys, Heroku API keys og Github Personal access token
+* Kjøre fly set-pipeline på <infra repo>/concourse/pipeline.yml i mitt eget Concoursemiljø. 
+* Utføre ekstra instruksjoner <infra repo>/README.md
+
+Verifikasjon
+
+* Endre kode og lage pull-request mot <app repo>, godkjenne / merge 
+
+Promotere / demotere 
+
+* Promotere bygg til Stage/Prod og verifisere at applikasjonen fortsatt fungerer
+
+
+
+
+
+
+
+
