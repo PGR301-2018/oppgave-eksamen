@@ -39,6 +39,7 @@ De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ;
 
 Det skal eksistere en CI/CDpipeline for applikasjonen som tilfredstiller kravene 
 
+* Det skal være en jobb  som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode
 * Pipeline skal implementeres med Concourse
 * Pipeline skal deploye master branch til CI miljø på hver commit i applikasjons-repo
   
