@@ -26,7 +26,7 @@ De viktigste prinsippene og overholde her ;
 
 ### Infrastruktur (30%)
 
-* Det skal eksistere miljøer for CI, Stage og Prod
+* Det skal lages miljøer for CI, Stage og Prod
 * Nødvendig infrastruktur skal i så stor grad som mulig opprettes med Terraform. 
 * GitHub repositories kan opprettes manuelt, ikke bry dere med Terraform Github provider
 
@@ -45,6 +45,10 @@ Det skal eksistere en CI/CDpipeline for applikasjonen som tilfredstiller kravene
 * Ett bygg (artifakt) for alle miljøer.  
 * Repeterbar deployment prosess
 * Smoke tests 
+
+De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ; 
+
+* IV, Build, Release, run  - Bygg, Relase og kjøring av applikasjon er å betrakte som distinkte steg. 
 
 ## Dokumentasjon (20%)
 
