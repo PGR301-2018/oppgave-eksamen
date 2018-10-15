@@ -1,13 +1,13 @@
 # Eksamensoppgave  
 
---- DISCLAIMER! --- 
+#--- DISCLAIMER! --- 
 
 DETTE DOKUMENTET ER Å ANSE SOM ET UTKAST FREM TIL FORMELL UTLEVERINGSDATO 6. NOVEMBER - DETTE ER I HENHOLD TIL 
 LÆREPLANEN ->
 
 "Beskrivelse av rammene for applikasjonen gjøres kjent for studentene senest 1 måned etter første forelesning. Vurderingskriteriene for applikasjon, og tilhørende dokumentasjon, tilgjengeliggjøres for studentene senest tre uker før frist for ferdigstillelse."
 
----- DISCLAIMER! --- 
+#---- DISCLAIMER! --- 
 
 Fra Læreplan 
 
