@@ -39,7 +39,7 @@ _her vild det komme krav relatert til telemetri og overvåkning_
 ### Infrastruktur (40%)
 
 * Det skal lages miljøer for CI, Stage og Prod
-* Nødvendig infrastruktur skal i så stor grad som mulig opprettes med Terraform. 
+* Nødvendig infrastruktur skal opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen.  
 * GitHub repositories kan opprettes manuelt, ikke bry dere med Terraform Github provider
 * Terraformkoden skal kjøres av CI/CD verktøy (concourse) og ikke kjøres manuelt. 
 
