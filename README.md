@@ -36,7 +36,7 @@ De viktigste prinsippene og overholde her ;
 
 _her vild det komme krav relatert til telemetri og overvåkning_
 
-e### Infrastruktur (40%)
+### Infrastruktur (40%)
 
 * Det skal lages miljøer for CI, Stage og Prod
 * Nødvendig infrastruktur skal i så stor grad som mulig opprettes med Terraform. 
@@ -67,7 +67,6 @@ De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ;
 # Praktisk 
 
 ## Tekniske krav
-
 
 ## Overlevering 
 
