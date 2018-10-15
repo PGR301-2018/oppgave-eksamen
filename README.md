@@ -75,21 +75,23 @@ Under evalueringen vil jeg gjøre følgende; (Subject to change)
 Installasjon 
 
 * Lage git fork av dine repositories 
-* Kjøre mvn install i <app repo>
-* Sette miljøvariable i henhold til README filer i <infra repo>/README.md
-* Kjøre terraform apply i <infra repo>/terraform/ mappen 
+* Kjøre mvn install i <app repo> for sjekke at tester kjører og app kompilerer
+* Sette miljøvariable i henhold til README filer i <infra repo>/README.md 
 * Lage deploy keys for mine fork repositories
-* Lage credentials.yml med deploy keys, Heroku API keys og Github Personal access token
-* Kjøre fly set-pipeline på <infra repo>/concourse/pipeline.yml i mitt eget Concoursemiljø. 
-* Utføre ekstra instruksjoner <infra repo>/README.md
+* Lage credentials.yml med deploy keys, Heroku API keys og Github Personal access token for min bruker
+* Utføre ekstra instruksjoner <infra repo>/README.md - så lite som mulig.
+* Kjøre fly set-pipeline på en fil som skal hete <infra repo>/concourse/pipeline.yml i mitt eget Concoursemiljø. 
+* Kjøre Infra-jobb i concourse 
 
 Verifikasjon
 
-* Endre kode og lage pull-request mot <app repo>, godkjenne / merge 
-
+* Endre kode og lage pull-request mot <app repo>, godkjenne / merge mot master
+* Verifisere at applikasjonen bygges og deployes i ny versjon til CI miljøet
+ 
 Promotere / demotere 
 
 * Promotere bygg til Stage/Prod og verifisere at applikasjonen fortsatt fungerer
+
 
 
 
