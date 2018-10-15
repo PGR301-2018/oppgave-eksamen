@@ -34,7 +34,7 @@ De viktigste prinsippene og overholde her ;
 * III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv) 
 * XI Logs. Applikasjonen skal bruke et rammeverk for logging, og logge til Stdout (System.out i Java)
 
-_her vild det komme krav relatert til telemetri og overvåkning_
+_her vil det komme krav relatert til telemetri og overvåkning_
 
 ### Infrastruktur (40%)
 
