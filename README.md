@@ -1,4 +1,13 @@
-# Eksamensoppgave 
+# Eksamensoppgave  
+
+--- DISCLAIMER! --- 
+
+DETTE DOKUMENTET ER Å ANSE SOM ET UTKAST FREM TIL FORMELL UTLEVERINGSDATO 6. NOVEMBER - DETTE ER I HENHOLD TIL 
+LÆREPLANEN ->
+
+"Beskrivelse av rammene for applikasjonen gjøres kjent for studentene senest 1 måned etter første forelesning. Vurderingskriteriene for applikasjon, og tilhørende dokumentasjon, tilgjengeliggjøres for studentene senest tre uker før frist for ferdigstillelse."
+
+---- DISCLAIMER! --- 
 
 Fra Læreplan 
 
@@ -18,7 +27,7 @@ Det skal lages to repositories,
 
 Studentene skal sende nanv på disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
 
-## Applikasjon (20%)
+## Applikasjon 
 
 Applikasjonen er ikke det viktigste elementet, men må være innholdsrik nok demonstrere DevOps ferdigheter og teknologi
 
@@ -36,7 +45,7 @@ De viktigste prinsippene og overholde her ;
 
 _her vil det komme krav relatert til telemetri og overvåkning_
 
-### Infrastruktur (40%)
+### Infrastruktur
 
 * Det skal lages miljøer for CI, Stage og Prod
 * Nødvendig infrastruktur skal opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen.  
@@ -47,7 +56,7 @@ De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ;
 
 * X Dev/Prod parity - Applikasjonen skal kjøre på *identisk konfigurert* infrastruktur i alle miljløer (utviklking, stage, prod)
 
-## Pipeline (40%)
+## Pipeline 
 
 Det skal eksistere en CI/CDpipeline for applikasjonen som tilfredstiller kravene 
 
