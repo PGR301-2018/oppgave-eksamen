@@ -25,7 +25,7 @@ Det skal lages to repositories,
 * Ett til infrastruktur (concourse + terraform) 
 * Ett for applikasjonen. 
 
-Studentene skal sende nanv på disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
+Studentene skal sende navn på disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
 
 ## Applikasjon 
 
