@@ -1,111 +1,157 @@
 # Eksamensoppgave  
 
-# --- DISCLAIMER! --- 
+## Fra Læreplan
 
-DETTE DOKUMENTET ER Å ANSE SOM ET UTKAST FREM TIL FORMELL UTLEVERINGSDATO 6. NOVEMBER - DETTE ER I HENHOLD TIL 
-LÆREPLANEN ->
+"Egenutviklet applikasjon (eller prototype) med tilhørende dokumentasjon: teller 100% av karakteren i emnet. Applikasjonen skal være utviklet, og være vedlikeholdbar, i et DevOps- miljø i skyen. Kildekode, og annen dokumentasjon, skal gjøres tilgjengelig for allmenheten."
 
-"Beskrivelse av rammene for applikasjonen gjøres kjent for studentene senest 1 måned etter første forelesning. Vurderingskriteriene for applikasjon, og tilhørende dokumentasjon, tilgjengeliggjøres for studentene senest tre uker før frist for ferdigstillelse."
+Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for studentene vil vi lette på kravet om miljøet skal kjøre kontinuerlig i skyen. Applikasjonen må istedet være mulig å etablere i skyen ved hjelp av infrastruktur som kode (Terraform) - og enkel automatisering.
 
-# ---- DISCLAIMER! --- 
-
-Fra Læreplan 
-
-"Egenutviklet applikasjon (eller prototype) med tilhørende dokumentasjon: teller 100% av karakteren i emnet. Applikasjonen skal være utviklet, og være vedlikeholdbar, i et DevOps- miljø i skyen. Kildekode, og annen dokumentasjon, 
-skal gjøres tilgjengelig for allmenheten."
-
-Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for studentene vil vi lette på kravet om miljøet skal kjøre kontinuerlig i skyen. Applikasjonen må istedet være mulig å etablere i skyen ved hjelp av infrastruktur som kode (Terraform) - og enkel automatisering. På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
-
+På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
 
 ## Krav
 
 Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i offentlige GitHib repositories
 
-Det skal lages to repositories, 
-* Ett til infrastruktur (concourse + terraform) 
-* Ett for applikasjonen. 
+Det skal lages minst to repositories,
 
-Studentene skal sende navn på disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
+* Ett til infrastruktur (concourse + terraform)
+* Ett for en eksempel-applikasjon.
+* N antall for andre applikasjoner eller komponenter
 
-## Applikasjon 
+Studentene skal sende lenke til disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
 
-Applikasjonen er ikke det viktigste elementet, men må være innholdsrik nok demonstrere DevOps ferdigheter og teknologi
+## Applikasjon
 
-* Applikasjonen skal bestå av både kode og database. Minimalt et REST API med CRUD kapabilitet.   
-* Applikasjonen skal bygge med Maven 
+Applikasjonen må væreinnholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten.
+
+* Applikasjonen skal bestå av både av et API og en database. Minimalt et REST API med CRUD kapabilitet.   
+* Databasen kan være "in Memory" (h2 osv)- Dvs. Dere trenger ikke tenke på å sette opp database-infrastruktur.
+* Applikasjonen skal bygge med Maven
 * Applikasjonen skal ha enhetstester
-* Dersom noen av testene feiler, skal maven- eller gradle bygget også feile 
+* Dersom noen av testene feiler, skal bygget også feile
 
 Applikasjonen skal være skrevet på en slik måte at drift og vedlikehold er enkelt og i henhold til prinsipper i [the twelve factor app]](https://12factor.net/)
 
-De viktigste prinsippene og overholde her ; 
- 
-* III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv) 
+De viktigste prinsippene og overholde er ;
+
+* III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv)
+* IV, Build, Release, run  - Bygg, Relase og kjøring av applikasjon er å betrakte som distinkte steg.
 * XI Logs. Applikasjonen skal bruke et rammeverk for logging, og logge til Stdout (System.out i Java)
-
-_her vil det komme krav relatert til telemetri og overvåkning_
-
-### Infrastruktur
-
-* Det skal lages miljøer for CI, Stage og Prod
-* Nødvendig infrastruktur skal opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen.  
-* GitHub repositories kan opprettes manuelt, ikke bry dere med Terraform Github provider
-* Terraformkoden skal kjøres av CI/CD verktøy (concourse) og ikke kjøres manuelt. 
-
-De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ; 
-
 * X Dev/Prod parity - Applikasjonen skal kjøre på *identisk konfigurert* infrastruktur i alle miljløer (utviklking, stage, prod)
 
-## Pipeline 
+## Krav  Infrastruktur
 
-Det skal eksistere en CI/CDpipeline for applikasjonen som tilfredstiller kravene 
+* Det skal  tre miljøer
+
+- CI (Contuinous integraiton) - Master branch i applikasjon-repository skal til enhver tid installeres i dette miljøet.   
+- Stage - Dette er et miljø som typisk brukes for tester, for eksmpel ytelses- eller sikkerhetstester.
+- Prod - Dette er miljøet som kundene- eller brukerene av løsningen opplever.
+
+* Nødvendig infrastruktur skal så langt det lar seg gjøre opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen - terraformkoden skal kjøres av CI/CD verktøy (concourse) og ikke kjøres manuelt.
+
+## Krav til DevOps Pipeline
+
+Det skal eksistere en CI/CDpipeline for applikasjonen.
 
 * Pipeline skal implementeres med Concourse
-* Det skal være en jobb  som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode
-* Pipeline skal deploye master branch til CI miljø på hver commit i applikasjons-repo
+* Det skal være en concourse jobb som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode
+* Pipeline skal kontinuerlig deploye master branch til "CI miljø"" på hver commit mot applikasjons-repository master.
 
-De viktigste faktorene å overholde her ; 
+## Evauluering
 
-* Repeterbar deployment prosess
+Karakter settes ved at studenten utvider pipeline gitt som eksempel med minst en ekstra modul. Studentene velger selv hvilke moduler de vil levere.
 
-De viktigste [12 factor prinsippene](https://12factor.net/) og overholde her ; 
+* 10 poeng (E)
+* 20 poeng (D)
+* 30 poeng (C)
+* 40 poeng (B)
+* 50 poeng (A)
 
-* IV, Build, Release, run  - Bygg, Relase og kjøring av applikasjon er å betrakte som distinkte steg. 
+* Hvis en oppgave er løst, men ikke 100% korrekt kan det gis delvis poeng. For eksempel; En student implementerer overvåkning og metrics. Koden er rikitg skrevet, men feil i konfigurasjon gjør at logging ikke gjøres riktig. Dette kan eksmpelvis gi 7/10 poeng på overvåkning.
 
+## Overlevering - og hva eksaminator gjør  
 
-# Praktisk 
+Du har to alternativer for innlevering.
 
-## Tekniske krav
+* Du koder "offentlig" og lager public Github repositories. Jeg vil lage forks av disse.
+* Du koder "privat" og inviterer github bruker *glennbech* som collaborator med lesetilgang. Jeg lager så  forks av disse.
 
-## Overlevering 
+Det stilles følgende krav til leveransen
 
-Under evalueringen vil jeg gjøre følgende; (Subject to change)
+* Leveransen skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig (github_tokens, deploy keys, api keys til diverse tjenester osv).
+* Eksaminator døper om filen credentials_example.yml til credentials.yml og legger inn sine hemmeligheter  
+* Eksaminator utføre ekstra instruksjoner <infra repo>/README.md - (så lite som mulig).
+* Eksaminator vil deretter kjøre ```fly -t (min target) set-pipeline <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
+*
 
-Installasjon 
+## Oppgaver
 
-* Lage git fork av dine repositories 
-* Kjøre mvn install i <app repo> for sjekke at tester kjører og app kompilerer
-* Sette miljøvariable i henhold til README filer i <infra repo>/README.md 
-* Lage deploy keys for mine fork repositories
-* Lage credentials.yml med deploy keys, Heroku API keys og Github Personal access token for min bruker
-* Utføre ekstra instruksjoner <infra repo>/README.md - så lite som mulig.
-* Kjøre fly set-pipeline på en fil som skal hete <infra repo>/concourse/pipeline.yml i mitt eget Concoursemiljø. 
-* Kjøre Infra-jobb i concourse 
+# Docker (20 poeng)
 
-Verifikasjon
+I vår basis-pipeline gjør Heroku et bygg av koden på hver commit til master. Heroku bygger en "slug" som er en binær leveransepakke som inneholder din applikasjon, og annen nødvendig programvare. Dette ivaretar prinsippet om ett bygg, av en artifakt som flyttes mellom miljøer.
 
-* Endre kode og lage pull-request mot <app repo>, godkjenne / merge mot master
-* Verifisere at applikasjonen bygges og deployes i ny versjon til CI miljøet
- 
-Promotere / demotere 
+Heroku slugs er derimot ikke en standardisert måte å pakke applikasjoner på. Hvis man ønsker å bruke en annen sky-leverandør en Herku, må man endre måten man pakker og installerer applikasjoner på.
 
-* Promotere bygg til Stage/Prod og verifisere at applikasjonen fortsatt fungerer
+Docker, og containere støttes av de fleste public cloud leverandører og hvis man lager en container av applikasjonen man bygger har man stor fleksibilitet og utvalg av platformer.
 
+Denne oppgaven består av følgende;
 
+* Du skal lage en Concourse pipeline, som bygger et Docker Image, som lastes opp i en Container Registry. Heroku støtter dette, så man kan gjøre denne oppgaven uten å bruke en annen skyleverandør.
+* En concourse jobb skal sørge for at hver commit til master branch i applikasjon skal resultere i en ny Docker image versjon
+* En  concourse jobb skal sørge for at siste versjon av Docker image installeres i et CI miljø.
+* En concourse jobb skal sørge for at docker images som vellykket har blitt installert i CI miljøet installeres i et produksjonsmiljø-
 
+# Overvåkning, varsling og Metrics (20 poeng)
 
+Denne oppgaven består av å implementere overvåkning, og varsling.
 
+Krav til oppgaven;
 
+- Applikasjonen skal logge egendefinerte metrics / custom metrics til en database som influxdb/carbon
+- Med egendefinerte metrics menes datapunkter generert av egen skrevet kode i applikasjonen. Det kan for eksempel være
+- Metrics skal vises visuelt i et dashboard for eksempel Grafana
+- Infrastruktur skal i så stor grad som mulig opprettes fra terraform
+- Dashboards, grafer osv skal også i så stor grad som mulig opprettes fra terraform
+- Applikasjonen sine endepunkter skal overvåkes slik at problemer oppdages raskt. Ved avbrudd og feil skal det varlses til en eller flere kanaler (epost, lack, telefon etc)
 
+Oppgaven kan enten løses ved å finne en PAAS løsning  
 
+* Heroku m/ Heroku "hosted graphite" addon (gratis alternativ)
+* Dersom ikke heroku, hosted graphite direkte (free trial)
 
+Eller IAAS
+
+* Studenten oppretter et miljø for Overvåkning, Metrics og varsling på AWS/GCP ved
+hjelp av Terraform
+
+OBS. Graden av automatisering. Altså hvor mye som opprettes fra Terraform påvirker
+poengsetting i denne oppgaven.
+
+# Applikasjonslogger (10 poeng)
+
+Denne oppgaven består av å bruke en tjeneste for log-innsamling, og utvide applikasjonen på en slik
+måte at logger sendes til denne tjenesten.
+
+Krav til tjenesten
+
+* Man skal kunne se- og søke logger i et  Dashboards
+
+Eksempel på løsning;
+
+* https://app.logz.io/ - ELK (ElasticSearch, Logstash, Kibana) as a Service.
+
+# Ekstra Public Cloud provider & Serverless (10 poeng)
+
+Denne oppgaven består av å ta i bruk en annen skyleverandør en Heroku for all infrastruktur. Studentene kan velge mellom;
+
+* Google Cloud platform
+* Amazon Web Services
+
+All infrastruktur skal også her i så stor grad som mulig opprettes via Terraform provider for respektive skyleverandør.
+
+Studentene  bør etterstrebe å holde seg innenfor gratis bruk av tjenester.
+
+# Serverless (10 Poeng)
+
+* Det skal leveres en Google Cloud Function, eller AWS Lambda function.
+* Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
