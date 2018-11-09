@@ -34,7 +34,7 @@ Applikasjonen skal være skrevet på en slik måte at drift og vedlikehold er en
 
 De viktigste prinsippene og overholde er ;
 
-III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv) - se på application.yml i eksempel-applikasjonene vi har laget i timene.
+* III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv) - se på application.yml i eksempel-applikasjonene vi har laget i timene.
 
 Pass spesielt godt på å ikke sjekke inn API nøkler, Github Personal access token, Deploy keys osv.
 
