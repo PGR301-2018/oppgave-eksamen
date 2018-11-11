@@ -208,7 +208,8 @@ Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall 
 public String welcome() {
     registry.meter("welcome").mark();
     return "....";
-}```
+}
+```
 
 I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Minst tre av disse;
 
