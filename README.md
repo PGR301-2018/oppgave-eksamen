@@ -142,7 +142,7 @@ Praktiske oppgaver;
 * Docker image skal lastes opp til Heroku Docker Registry
 * Hvis bygget går okey, og det dukker opp en nytt container image i registry- skal dette deployes til CI miljøet ved hjelp av en egen Concourse jobb.
 
-Pipeline skla se slik ut når dere er ferdige.
+Pipeline skal se slik ut når dere er ferdige.
 ![image](pipeline.png "Pipeline")
 
 For å laste opp/ned Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
