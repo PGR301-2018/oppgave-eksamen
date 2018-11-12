@@ -57,7 +57,7 @@ Bruk Logback eller Log4j via sl4j i Spring Boot. Ikke bruk System.out.println();
 - Stage - Dette er et miljø som typisk brukes for tester, for eksmpel ytelses- eller sikkerhetstester.
 - Prod - Dette er miljøet som kundene- eller brukerene av løsningen opplever.
 
-* Nødvendig infrastruktur skal så langt det lar seg gjøre opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen - terraformkoden skal kjøres av CI/CD verktøy (concourse).
+Nødvendig infrastruktur skal så langt det lar seg gjøre opprettes med Terraform. Det skal ikke være nødvendig å for eksaminator å ha terraform installert på PC for å etablere infrastrukturen - terraformkoden skal kjøres av CI/CD verktøy (concourse).
 
 For Infrastruktur som ikke kan opprettes med Terraform, kan dere lage instruksjoner i README.md i <infra-repository>    
 
@@ -69,11 +69,11 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Det skal være en concourse jobb som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 
-* Deployment fra CI-miljø videre til Stage og produksjon skal skje manuelt ved at man promoterer i et Heroku UI, slik vi har gjort det i øvingene. Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
+* Deployment fra CI-miljø videre til Stage og produksjon skal skje manuelt ved at man promoterer applikasjonen i Heroku UI () slik vi har gjort det i øvingene). Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
 
 ## Evauluering
 
-Karakter settes ved at studenten utvider pipeline gitt i utlevering med minst en ekstra modul. Studentene velger selv hvilke moduler de vil levere, og implementasjon av en modul gir poeng.
+Karakter settes ved at studenten utvider pipeline gitt i utlevering med minst en ekstra modul. Studentene velger selv hvilke moduler de vil levere, og implementasjon av en modul gir poeng som teller mot karakter på oppgaven.
 
 * 15 poeng (E)
 * 20 poeng (D)
@@ -100,19 +100,20 @@ Det stilles følgende krav til leveransen
 Eksaminator gjør følgende når han får oppgaven ...
 
 * Lager forks av de inleverte repositories. Lager deploy keys
-* Endrer pipeline, og setter inn nye repositories under source (egne forks)  
+* Endrer pipeline.yml, og setter inn sine repositories under "source"   
 * Døper om filen credentials_example.yml til credentials.yml og legger inn sine egne hemmeligheter
 * Endrer variables.tf eller andre filer basert på instrukser i README filen.
 * Sletter eventuelle .terraform katalog og terraform.tfstate fil
 * KJører ```fly -t (min target) set-pipeline <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
 * Kjører "infra" jobben i Concourse
 * Comitter kode på master branch, og venter på at bygget skal starte av seg selv.
+* Leser README :-)
 
 ## Oppgaver
 
 # Basis pipeline (10 poeng)
 
-* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". Korrekt levering gir automatisk 10 poeng. Det enbefales på det sterkeste å gå igjennom Concourse tutorial dersom studenten ikke har jort det tidligere i kurset; https://concoursetutorial.com/
+* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". Korrekt levering gir automatisk 10 poeng. Det anbefales på det sterkeste å gå igjennom Concourse tutorial dersom studenten ikke har jort det tidligere i kurset; https://concoursetutorial.com/
 
 # Docker (20 poeng)
 
@@ -120,24 +121,24 @@ I vår basis-pipeline gjør Heroku et bygg av koden på hver commit til master.
 
 Heroku bygger en "slug" som er en binær leveransepakke som inneholder din applikasjon, og annen nødvendig programvare. Dette ivaretar prinsippet om ett bygg, av en artifakt som "flyter" mellom miljøer.
 
-Heroku slugs er derimot _ikke_ en standardisert måte å pakke applikasjoner på. Hvis man ønsker å bruke en annen sky-leverandør en Herku, må man endre måten man pakker og installerer applikasjoner på.
+Heroku slugs er derimot _ikke_ en standardisert måte å pakke applikasjoner på. Hvis man ønsker å bruke en annen sky-leverandør enn Heroku, står man på bar bakke.
 
-Docker, og containere støttes av de fleste public cloud leverandører og hvis man benytter containers, får man stor fleksibilitet og utvalg av platformer.
+Docker, og containere støttes av de fleste public cloud leverandører, og hvis man benytter containers får man stor fleksibilitet og utvalg av platformer.
 
-I denne oppgaven skal dere bygge et nytt Docker image på hver commit til _app-repo_ master branch, og laste det opp i heroku container registry. CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester har gått bra. Det gir samtidig bedre separasjon mellom bygg og deploy/release som er et viktig [12 factor app prinsipp](https://12factor.net/build-release-run)
+I denne oppgaven skal dere bygge et nytt Docker image for hver commit til _app-repo_ master branch, og laste det opp i heroku [container registry](https://blogs.vmware.com/cloudnative/2017/06/21/what-is-a-container-registry/).
 
+CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester har gått bra. Det gir  veldig god separasjon mellom bygg og deploy/release som er et viktig [12 factor app prinsipp](https://12factor.net/build-release-run)
 
 Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
-Denne oppgaven består av følgende;
+Praktiske oppgaver;
 
 * Du skal skrive en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen din.
-* Du skal  utvide Concourse pipeline, til å bygge et Docker image.
+* Du skal  utvide Concourse pipeline, til å bygge et Docker image fra Docker filen
 * Docker image skal lastes opp til Heroku Docker Registry
 * Hvis bygget går okey, og det dukker opp en nytt container image i registry- skal dette deployes til CI miljøet ved hjelp av en egen Concourse jobb.
 
-
-![image](docker_overview.png "Overview")
+![image](overview_docker.png "Overview")
 
 For å laste opp et Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
 
