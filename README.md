@@ -140,7 +140,7 @@ Praktiske oppgaver;
 
 ![image](overview_docker.png "Overview")
 
-For å laste opp et Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
+For å laste opp/ned Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
 
 ```yaml
 resource:
@@ -156,15 +156,13 @@ Så kan man fra pipeline gjøre en "put" mot denne ressursen
 
 ```- name: build
   plan:
-   (bla blah)
+   (bla blah blah)
   - put: docker-image-app
     params:
       build: jar-file
 ```
 
 Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer (jar filen). Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
-
-
 
 
 
