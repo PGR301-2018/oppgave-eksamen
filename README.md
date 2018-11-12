@@ -35,7 +35,7 @@ Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise
 * Applikasjonen skal ha enhetstester
 * Dersom noen av testene feiler, skal bygget også feile
 
-Applikasjonen skal være skrevet på en slik måte at drift og vedlikehold er enkelt og i henhold til prinsipper i [the twelve factor app]](https://12factor.net/)
+Applikasjonen skal være skrevet på en slik måte at drift og vedlikehold er enkelt og i henhold til prinsipper i [the twelve factor app](https://12factor.net/)
 
 De viktigste prinsippene og overholde er ;
 
