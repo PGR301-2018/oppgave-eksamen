@@ -210,7 +210,7 @@ Hint:
 Dere må bruke heroku CLI og ```heroku container:release web``i en concourse jobb for å deploye versjonen som nylig ble publisert til Heroku Container registry. Dette er ikke støttet i Docker imaget som brukes for Heroku i det utleverte materialet. (Som har gammel versjon av CLI)
 
 Dere må derfor bruke et annet Docker image som basis for tasken som skal kjøre heroku CLI fra Concourse. Eksempel på Deploy-Task er gitt her;
-``````
+```
 platform: linux
 
 image_resource:
