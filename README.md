@@ -370,6 +370,7 @@ Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonsko
 # Kjente problemer
 
 - Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres. Bonuspoeng til den eller de som løser dette!
+- Dockerfile i example-app ; vær obs på ARG JAR_FILE. Prosessen som bygger Docker image (concourse put, til resource docker-image) funker ikke så bra . ENTRYPOINT må trolig også byttes ut om CMD
 
 
 LYKKE TIL !!
