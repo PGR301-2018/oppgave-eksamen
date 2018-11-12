@@ -127,9 +127,13 @@ Docker, og containere støttes av de fleste public cloud leverandører, og hvis 
 
 I denne oppgaven skal dere bygge et nytt Docker image for hver commit til _app-repo_ master branch, og laste det opp i heroku [container registry](https://blogs.vmware.com/cloudnative/2017/06/21/what-is-a-container-registry/).
 
+![image](overview_docker.png "Overview")
+
 CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester har gått bra. Det gir  veldig god separasjon mellom bygg og deploy/release som er et viktig [12 factor app prinsipp](https://12factor.net/build-release-run)
 
 Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime)
+
+
 
 Praktiske oppgaver;
 
@@ -138,6 +142,7 @@ Praktiske oppgaver;
 * Docker image skal lastes opp til Heroku Docker Registry
 * Hvis bygget går okey, og det dukker opp en nytt container image i registry- skal dette deployes til CI miljøet ved hjelp av en egen Concourse jobb.
 
+Pipeline skla se slik ut når dere er ferdige.
 ![image](overview_docker.png "Overview")
 
 For å laste opp/ned Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
@@ -151,6 +156,7 @@ resource:
     username: ((heroku_email))
     password: ((heroku_api_key))
 ```
+Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
 
 Så kan man fra pipeline gjøre en "put" mot denne ressursen
 
@@ -162,9 +168,7 @@ Så kan man fra pipeline gjøre en "put" mot denne ressursen
       build: jar-file
 ```
 
-Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer (jar filen). Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
-
-
+(Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer jar filen.)
 
 # Overvåkning, varsling og Metrics (20 poeng)
 
