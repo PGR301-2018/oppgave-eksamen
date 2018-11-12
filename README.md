@@ -20,7 +20,7 @@ Det skal lages minst to repositories,
 
 Studentene skal sende lenke til disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
 
-Følgende to repositories kan brukes som startpunkt, og tilsvarer øvingen vi gjorde i forelesning om monitorering, minus status-cake.
+Følgende to repositories kan brukes som startpunkt, og tilsvarer øvingen vi gjorde i forelesning om monitorering.
 
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
