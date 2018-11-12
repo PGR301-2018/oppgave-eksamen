@@ -25,12 +25,15 @@ Følgende to repositories kan brukes som startpunkt, og tilsvarer øvingen vi gj
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
 
+For å komme i gang ... (Dette kan dere fra Øvingene!!)
+
 * Pass på at concourse kjører- Gå til localhost:8080
 * Lag en fork av repositories
-* Endre <infra>/terraform/variables.tf - velg deg inike prefix, og pipeline navn
+* Endre <infra>/terraform/variables.tf - velg deg unike verdier for prefix, og pipeline navn
 * Lag deploy keys for repositoryene, installer disse, og ta vare på privat key.
 * Modifieser Credentials.yml og legg inn dine hemmeligheter (blant annet deploy keys)
-* Kjør (Der <target> er det du vanligvis bruker)          
+* Kjør (Der target er det du vanligvis bruker)  
+* Du er nå klar for å begynne på eksamen.        
 
 ```
 fly -t ≤target> sp -p pipeline_name -c concourse/pipeline.yml -l credentials.yaml
@@ -56,13 +59,15 @@ De viktigste prinsippene og overholde er ;
 
 * III Config. Ignen hemmeligheter eller konfigurasjon i applikasjonen (ingen config filer med passord/brukere/URLer osv) - se på application.yml i eksempel-applikasjonene vi har laget i timene.
 
-Pass spesielt godt på å ikke sjekke inn API nøkler, Github Personal access token, Deploy keys osv.
+Pass godt på å ikke sjekke inn API nøkler, Github Personal access token, Deploy keys osv.
 
 * XI Logs. Applikasjonen skal bruke et rammeverk for logging, og logge til Stdout (System.out i Java)
 
 Bruk Logback eller Log4j via sl4j i Spring Boot. Ikke bruk System.out.println();
 
-* X Dev/Prod parity - Applikasjonen bør kunne kjøre i identisk infrastruktur i alle miljløer (utviklking, stage, prod, og lokal utviklingsmaskin). Etterstreb å jobbe loaklt, ved å kjøre heroku local
+* X Dev/Prod parity - Applikasjonen bør kunne kjøre i identisk infrastruktur i alle miljløer (utviklking, stage, prod, og lokal utviklingsmaskin). Etterstreb å jobbe loaklt, ved å kjøre heroku local.
+
+* Bonuspoeng til de som klarer å få Concourse til a Cache m2 repo. (https://stackoverflow.com/questions/40736296/how-to-cache-maven-repository-between-builds) - Det vil spare dere mye tid !
 
 ## Krav til Infrastruktur
 
@@ -84,9 +89,9 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Det skal være en concourse jobb som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 
-* Deployment fra CI-miljø videre til Stage og produksjon skal skje manuelt ved at man promoterer applikasjonen i Heroku UI () slik vi har gjort det i øvingene). Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
+* Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku UI () slik vi har gjort det i øvingene). Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
 
-## Evauluering
+## Evaluering
 
 Karakter settes ved at studenten utvider pipeline gitt i utlevering med minst en ekstra modul. Studentene velger selv hvilke moduler de vil levere, og implementasjon av en modul gir poeng som teller mot karakter på oppgaven.
 
@@ -146,7 +151,7 @@ I denne oppgaven skal dere bygge et nytt Docker image for hver commit til _app-r
 
 CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester har gått bra. Det gir  veldig god separasjon mellom bygg og deploy/release som er et viktig [12 factor app prinsipp](https://12factor.net/build-release-run)
 
-Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime)
+Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime) - bruk litt tid på den!! Løsningen på oppgaven er å kjøre Heroku på kommandolinje fra Concourse.
 
 Praktiske oppgaver;
 
@@ -182,7 +187,7 @@ jobs:
         build: jar-file
 ```
 
-Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
+Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/ - bruk litt tid på å sette dere inn i dette.
 
 For bare å deploye Docker images som har "passert" bygge-fasen uten feil, bruker vi "passed:" i concourse jobben slik ;
 
@@ -276,7 +281,7 @@ Til dette skal applikasjonen bruke [Metrics bibliotektet fra Dropwizard](https:/
   </dependency>
 ```
 
-DropWizard Metrics skal konfigureres til å levere datapunkter til HostedGraphite i Heroku - Dere kan legge til en slik klasse, eller noe tilsvarende inn i Spring Boot Applikasjonen for å få til det.
+DropWizard Metrics skal konfigureres til å levere datapunkter til HostedGraphite add-on'en til Heroku - Dere kan legge til en slik klasse, eller noe tilsvarende inn i Spring Boot Applikasjonen for å få til det. se https://metrics.dropwizard.io/4.0.0/manual/graphite.html#manual-graphite
 
 ```java
 @Configuration
@@ -360,11 +365,11 @@ Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonsko
 
 * Det skal leveres en Google Cloud Function, eller AWS Lambda funksjon.
 * Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
-
+* Husk å legge til eksempel på nøkler i credentials_example.yaml!
 
 # Kjente problemer
 
-- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres.
+- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres. Bonuspoeng til den eller de som løser dette!
 
 
 LYKKE TIL !!
