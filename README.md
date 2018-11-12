@@ -25,6 +25,21 @@ Følgende to repositories kan brukes som startpunkt, og tilsvarer øvingen vi gj
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
 
+* Pass på at concourse kjører- Gå til localhost:8080
+* Lag en fork av repositories
+* Endre <infra>/terraform/variables.tf - velg deg inike prefix, og pipeline navn
+* Lag deploy keys for repositoryene, installer disse, og ta vare på privat key.
+* Modifieser Credentials.yml og legg inn dine hemmeligheter (blant annet deploy keys)
+* Kjør (Der <target> er det du vanligvis bruker)          
+
+```
+fly -t ≤target> sp -p pipeline_name -c concourse/pipeline.yml -l credentials.yaml
+```
+
+* Gå til concourse, og trykk på "Infra" jobben. Sjekk at du har fått opprettet Heroku Pipeline og statuscake dashboards.
+
+* Gå til concourse, og velg "Deploy app" jobben. Spring Boot applikasjonen skal nå være deployet på Heroku.
+
 ## Applikasjon
 
 Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten.
@@ -157,12 +172,14 @@ resource:
 
 Man kan så fra pipeline gjøre en "put" mot denne ressursen
 
-```- name: build
-  plan:
+```
+jobs:
+ - name: build
+   plan:
    (bla blah blah)
-  - put: docker-image-app
-    params:
-      build: jar-file
+    - put: docker-image-app
+      params:
+        build: jar-file
 ```
 
 Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
@@ -179,7 +196,47 @@ For bare å deploye Docker images som har "passert" bygge-fasen uten feil, bruke
         passed: [build]
 ```
 
+(Det er det som gjør at jobbene kommer "etter hverandre" i dashbordet)
+
 (Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer, som applikasjon-jar filen.)
+
+Hint:
+
+Dere må bruke heroku CLI og ```heroku container:release web``i en concourse jobb for å deploye versjonen som nylig ble publisert til Heroku Container registry. Dette er ikke støttet i Docker imaget som brukes for Heroku i det utleverte materialet. (Som har gammel versjon av CLI)
+
+Dere må derfor bruke et annet Docker image som basis for tasken som skal kjøre heroku CLI fra Concourse. Eksempel på Deploy-Task er gitt her;
+``````
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: wingrunr21/alpine-heroku-cli
+    tag: "latest"
+
+params:
+    heroku_email:
+    heroku_api_token:
+    app_name:
+
+run:
+  path: sh
+  dir: .
+  args:
+    - -exc
+    - |
+      cat > /root/.netrc <<EOF
+      machine api.heroku.com
+          login ${heroku_email}
+          password ${heroku_api_token}
+      machine git.heroku.com
+          login ${heroku_email}
+          password ${heroku_api_token}
+      EOF
+      export HEROKU_API_KEY=${heroku_api_token}
+      heroku container:release web -a ${app_name}
+
+```
 
 # Overvåkning, varsling og Metrics (20 poeng)
 
@@ -307,7 +364,7 @@ Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonsko
 
 # Kjente problemer
 
-- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres. 
+- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres.
 
 
 LYKKE TIL !!
