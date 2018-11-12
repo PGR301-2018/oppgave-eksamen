@@ -304,4 +304,10 @@ Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonsko
 * Det skal leveres en Google Cloud Function, eller AWS Lambda funksjon.
 * Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
 
+
+# Kjente problemer
+
+- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres. 
+
+
 LYKKE TIL !!
