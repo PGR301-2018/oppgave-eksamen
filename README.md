@@ -124,7 +124,7 @@ Eksaminator gjør følgende når han får oppgaven ...
 * Døper om filen credentials_example.yml til credentials.yml og legger inn sine egne hemmeligheter
 * Endrer variables.tf eller andre filer basert på instrukser i README filen.
 * Sletter eventuelle .terraform katalog og terraform.tfstate fil
-* KJører ```fly -t (min target) set-pipeline <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
+* KJører ```fly -t (min target) set-pipeline -c <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
 * Kjører "infra" jobben i Concourse
 * Comitter kode på master branch, og venter på at bygget skal starte av seg selv.
 * Leser README :-)
