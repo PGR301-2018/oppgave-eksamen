@@ -45,9 +45,9 @@ Pass spesielt godt på å ikke sjekke inn API nøkler, Github Personal access to
 
 * XI Logs. Applikasjonen skal bruke et rammeverk for logging, og logge til Stdout (System.out i Java)
 
-Bruk Logback, Log4j eller tilsvarende, ikke System.out.println();
+Bruk Logback eller Log4j via sl4j i Spring Boot. Ikke bruk System.out.println();
 
-* X Dev/Prod parity - Applikasjonen bør kunne kjøre i identisk infrastruktur i alle miljløer (utviklking, stage, prod, og lokal utviklingsmaskin)
+* X Dev/Prod parity - Applikasjonen bør kunne kjøre i identisk infrastruktur i alle miljløer (utviklking, stage, prod, og lokal utviklingsmaskin). Etterstreb å jobbe loaklt, ved å kjøre heroku local
 
 ## Krav til Infrastruktur
 
@@ -69,7 +69,7 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Det skal være en concourse jobb som heter "infra" som oppretter nødvemndig infrastruktur ved hjelp av terraform-kode.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 
-* Strategi for Deployment fra CI-miljø videre til Stage og produksjon er valgfritt. Dere kan velge 1) continous deployment, hvor hver commit automatisk flyter igjennom alle miljøene. Eller, dere kan implementere en strategi der man manuelt promoterer et bygg, slik vi har gjort med Heroku pipelines.
+* Deployment fra CI-miljø videre til Stage og produksjon skal skje manuelt ved at man promoterer i et Heroku UI, slik vi har gjort det i øvingene. Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
 
 ## Evauluering
 
@@ -93,11 +93,11 @@ Du har to alternativer for innlevering.
 Det stilles følgende krav til leveransen
 
 * Du skal levere ved å sende epost til post@glennbech.no, hust å skrive fult navn
-* Du skal også i eposten skrive hvilken oppgave du har valgt å løse. Det gjølr evalueringen raskere.
+* Du skal også i eposten skrive hvilken oppgave du har valgt å løse. Det gjør evalueringen raskere.
 * Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
 * Lenke til repositories
 
-Eksaminator ...
+Eksaminator gjør følgende når han får oppgaven ...
 
 * Lager forks av de inleverte repositories. Lager deploy keys
 * Endrer pipeline, og setter inn nye repositories under source (egne forks)  
@@ -106,34 +106,64 @@ Eksaminator ...
 * Sletter eventuelle .terraform katalog og terraform.tfstate fil
 * KJører ```fly -t (min target) set-pipeline <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
 * Kjører "infra" jobben i Concourse
-* Kjører "app" jobben i Concourse
-* Comitter kode på master branch for å teste pipeline
+* Comitter kode på master branch, og venter på at bygget skal starte av seg selv.
 
 ## Oppgaver
 
 # Basis pipeline (10 poeng)
 
-* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse".
+* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". Korrekt levering gir automatisk 10 poeng. Det enbefales på det sterkeste å gå igjennom Concourse tutorial dersom studenten ikke har jort det tidligere i kurset; https://concoursetutorial.com/
 
 # Docker (20 poeng)
 
-I vår basis-pipeline gjør Heroku et bygg av koden på hver commit til master. Heroku bygger en "slug" som er en binær leveransepakke som inneholder din applikasjon, og annen nødvendig programvare. Dette ivaretar prinsippet om ett bygg, av en artifakt som "flyter" mellom miljøer.
+I vår basis-pipeline gjør Heroku et bygg av koden på hver commit til master.
 
-Heroku slugs er derimot ikke en standardisert måte å pakke applikasjoner på. Hvis man ønsker å bruke en annen sky-leverandør en Herku, må man endre måten man pakker og installerer applikasjoner på.
+Heroku bygger en "slug" som er en binær leveransepakke som inneholder din applikasjon, og annen nødvendig programvare. Dette ivaretar prinsippet om ett bygg, av en artifakt som "flyter" mellom miljøer.
+
+Heroku slugs er derimot _ikke_ en standardisert måte å pakke applikasjoner på. Hvis man ønsker å bruke en annen sky-leverandør en Herku, må man endre måten man pakker og installerer applikasjoner på.
 
 Docker, og containere støttes av de fleste public cloud leverandører og hvis man benytter containers, får man stor fleksibilitet og utvalg av platformer.
 
+I denne oppgaven skal dere bygge et nytt Docker image på hver commit til _app-repo_ master branch, og laste det opp i heroku container registry. CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester har gått bra. Det gir samtidig bedre separasjon mellom bygg og deploy/release som er et viktig [12 factor app prinsipp](https://12factor.net/build-release-run)
+
+
+Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime)
+
 Denne oppgaven består av følgende;
 
-![Overview of docker](overview_docker.png "Overview")
+* Du skal skrive en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen din.
+* Du skal  utvide Concourse pipeline, til å bygge et Docker image.
+* Docker image skal lastes opp til Heroku Docker Registry
+* Hvis bygget går okey, og det dukker opp en nytt container image i registry- skal dette deployes til CI miljøet ved hjelp av en egen Concourse jobb.
 
 
-* Du skal lage en Concourse pipeline, som bygger et Docker Image av Spring Boot eksemel-applikasjonen. Docker image skal lastes opp i et Container Registry. Heroku støtter dette, så man kan fullføre denne oppgaven med Heroku.
-* En concourse jobb skal sørge for at hver commit til master branch i applikasjonen skal resultere i en ny Docker image versjon
-* En  concourse jobb skal sørge for at siste versjon av Docker image installeres i CI miljøet.
-* En concourse jobb skal sørge for at docker images som vellykket har blitt installert i CI miljøet installeres i stage miljøet
-* En concourse jobb skal kjøre minst en test mot appliksjonen i stage miljøet. Et forslag her er å ha en egen Spring profil som kjører Integrasjonstester med REST-assured.  
-* En concourse jobb skal installere docker images som vellykket har passert Stage, i produksjonsmiljøet
+![image](docker_overview.png "Overview")
+
+For å laste opp et Docker image ved hjelp av concourse kan man bruke en spesiell ressurstype
+
+```yaml
+resource:
+- name: docker-image-app
+  type: docker-image
+  source:
+    repository: registry.heroku.com/((heroku_app_name))/web
+    username: ((heroku_email))
+    password: ((heroku_api_key))
+```
+
+Så kan man fra pipeline gjøre en "put" mot denne ressursen
+
+```- name: build
+  plan:
+   (bla blah)
+  - put: docker-image-app
+    params:
+      build: jar-file
+```
+
+Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer (jar filen). Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
+
+
 
 
 
@@ -147,7 +177,7 @@ Metrics skal implementeres ved hjelp av følgende Heroku Addon https://elements.
 
 Heroku-Addon "hosted graphite" - skal legges til applikasjon ved hjelp av terraform
 
-Terraform kode for å legge til en Add-on vil se slik ut
+Terraform kode for å legge til en Add-on  for ett miljø vil se slik ut
 ```
 # Create a hosted graphite, and configure the app to use it
 resource "heroku_addon" "hostedgraphite" {
