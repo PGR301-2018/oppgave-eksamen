@@ -257,11 +257,7 @@ public String welcome() {
 
 I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Minst tre av disse;
 
-- meter
-- gauge
-- counter
-- histogram
-- timer
+* meter, gauge, counter, histogram, timer
 
 - Applikasjonen sine endepunkter skal også overvåkes slik at problemer oppdages raskt. Vi har gjort øvinger der StatusCake til dette. Her kan dere gjenbruke terraform kode fra tidligere øving.
 
@@ -273,13 +269,13 @@ Denne oppgaven har et "høne/egg" problem som ofte kan oppstå når teori møter
 
 Man må kjøre terraform for å få opprettet pipeline, heroku applikasjoner og add-ons.
 
-Før terraform har kjørt, vet man ikke hva GRAPHITE_HOST vil bli. Samtidig trenger man å sette denne verdien inn i GRAPHITE_HOST miljø-variablen i  Terraform koden til applikasjonen.
+Før terraform har kjørt, vet man ikke hva GRAPHITE_HOST, og HOSTEDGRAPHITE_APIKEY vil bli. Samtidig trenger man å sette disse verdien inn i miljø-variabler i Heroku via Terraform.
 
-I slike tilfeller må man være pragmatisk, og bruke en tom Verdi for GRAPHITE_HOST i terraform for applikasjonen første gang man kjører terraform.
+I slike tilfeller må man være pragmatisk, og bruke en tomme Verdier for ukjente parametere første gang man kjører terraform.
 
-Så man man gå inn i UI for HostedGraphite add-on, finne verdien for GRAPHITE_HOST, sette den- før man kjører det hele på nytt.
+Så man man gå inn i UI for HostedGraphite add-on, finne verdien for GRAPHITE_HOST, og HOSTEDGRAPHITE_APIKEY for deretter å sette den- før man kjører det hele på nytt.
 
-Denne type "Temporaler" avhengigheter er ikke uvanlig, og viser bare at det fortsatt er utfordringer igjen å løse i "infrastruktur som kode" domenet.
+Denne type "temporale" avhengigheter er ikke uvanlig, og viser bare at det fortsatt er utfordringer igjen å løse i "infrastruktur som kode" domenet.
 
 
 # Applikasjonslogger (10 poeng)
@@ -307,3 +303,5 @@ Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonsko
 
 * Det skal leveres en Google Cloud Function, eller AWS Lambda funksjon.
 * Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
+
+LYKKE TIL !!
