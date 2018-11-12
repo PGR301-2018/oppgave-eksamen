@@ -1,4 +1,4 @@
-# Eksamensoppgave   (NB. NB. Ikke å anse som utlevert før beskjed blir gitt, og tidligst mandag 11. November)
+# Eksamensoppgave PGR301
 
 ## Fra Læreplan
 
