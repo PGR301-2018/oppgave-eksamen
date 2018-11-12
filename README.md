@@ -133,8 +133,6 @@ CI miljøet skal så oppdateres med siste versjon av koden, dersom alle tester h
 
 Det anbefales at studenten gjør seg kjent med hvordan Docker fungerer sammen med Heroku. [Denne veiledningen er et godt utgangspunkt](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
-
-
 Praktiske oppgaver;
 
 * Du skal skrive en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen din.
@@ -156,9 +154,8 @@ resource:
     username: ((heroku_email))
     password: ((heroku_api_key))
 ```
-Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
 
-Så kan man fra pipeline gjøre en "put" mot denne ressursen
+Man kan så fra pipeline gjøre en "put" mot denne ressursen
 
 ```- name: build
   plan:
@@ -168,7 +165,21 @@ Så kan man fra pipeline gjøre en "put" mot denne ressursen
       build: jar-file
 ```
 
-(Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer jar filen.)
+Dokumentasjon om denne mekanismen finnes her; https://concoursetutorial.com/miscellaneous/docker-images/
+
+For bare å deploye Docker images som har "passert" bygge-fasen uten feil, bruker vi "passed:" i concourse jobben slik ;
+
+```
+  name: deploy-ci
+  plan:
+    - aggregate:
+      - get: monitoring-infra
+      - get: docker-image-app
+        trigger: true
+        passed: [build]
+```
+
+(Parameter "jar-file", er en output fra en Task. Output inneholder en Dockerfile og nødvendige filer, som applikasjon-jar filen.)
 
 # Overvåkning, varsling og Metrics (20 poeng)
 
@@ -274,7 +285,7 @@ Denne type "Temporaler" avhengigheter er ikke uvanlig, og viser bare at det fort
 
 Denne oppgaven består av å bruke en tjeneste for innsamling, visualisering og analyse av logger. Dere ska utvide applikasjonen på en slik måte at logger sendes til denne tjenesten.
 
-I oppgaven skla sdere registrere dere på- og bruke tjenesten [Logz.io](https://app.logz.io/) som er en SAAS løsning som tilbyr ELK (ElasticSearch, Logstash, Kibana) Stack der man kan lagre 3GB med lagring i en "community" plan som er gratis.
+I oppgaven skla sdere registrere dere på- og bruke tjenesten [Logz.io](https://app.logz.io/) som er en SAAS løsning som tilbyr ELK (ElasticSearch, Logstash, Kibana) Stack der man kan lagre 3GB med lagring i en plan som er gratis.
 
 På nettsidene til logz.io er det [instruksjoner dere kan følge for å sette opp logging i Java  applikasjoner](https://app.logz.io/#/dashboard/data-sources/Java--logbackappender). (Det lønner deg å være logget på hvis dere følger lenken.)
 
@@ -287,17 +298,11 @@ Etter dere har gjort der får dere startet lokalt
 - ElasticSearch (http://localhost:9200)
 - Kibana (http://localhost:5601)
 
-Referansedokumentasjon ; https://elk-docker.readthedocs.io/#updating-logstash-configuration
+Referansedokumentasjon ; https://elk-docker.readthedocs.io/
 
-Eksaminator vil se ut ifra konfigurasjon, og ut ifra applikasjonskode at en slik tjeneste er tatt i bruk.
-
+Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonskode (Log statements) at en slik tjeneste er tatt i bruk.
 
 # Serverless (10 Poeng)
 
-* Det skal leveres en Google Cloud Function, eller AWS Lambda function.
+* Det skal leveres en Google Cloud Function, eller AWS Lambda funksjon.
 * Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
-
-# Nyttige lenker
-
-* https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys
-* https://devcenter.heroku.com/articles/platform-api-quickstart
