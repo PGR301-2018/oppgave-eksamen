@@ -111,10 +111,9 @@ Det stilles følgende krav til leveransen
 * Du må lage en annonym Github bruker - brukernavnet må være utformet slik at det ikke går ann å utlede hvem du er basert på navnet. 
 * Repositories som du lagert må være offentlige
 * Det må ikke være mulig ut ifra koden å identifsere studenten. Det er viktig å ikke benytte @author tags osv.
-* Du skal levere lenke til relevante repositories i wiseflow
+* Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
 * I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
 * Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
-
 
 Eksaminator gjør følgende når han får oppgaven ...
 
