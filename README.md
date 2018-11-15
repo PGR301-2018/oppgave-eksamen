@@ -114,7 +114,7 @@ Det stilles følgende krav til leveransen
 * Du skal levere lenke til relevante repositories i wiseflow
 * I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
 * Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
-* Lenke til repositories
+
 
 Eksaminator gjør følgende når han får oppgaven ...
 
@@ -126,7 +126,7 @@ Eksaminator gjør følgende når han får oppgaven ...
 * KJører ```fly -t (min target) set-pipeline -c <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
 * Kjører "infra" jobben i Concourse
 * Comitter kode på master branch, og venter på at bygget skal starte av seg selv.
-* Leser README :-)
+* Leser README.
 
 ## Oppgaver
 
