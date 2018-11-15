@@ -8,6 +8,7 @@ Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for stu
 
 På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
 
+
 ## Krav
 
 Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i  GitHib repositories.
