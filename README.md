@@ -105,15 +105,14 @@ Karakter settes ved at studenten utvider pipeline gitt i utlevering med minst en
 
 ## Krav til leveranse - og hva eksaminator gjør  
 
-Du har to alternativer for innlevering.
-
-* Du koder "offentlig" og lager public Github repositories. Jeg vil lage forks av disse.
-* Du koder "privat" og inviterer github bruker *glennbech* som collaborator med lesetilgang. Jeg lager så  forks av disse.
 
 Det stilles følgende krav til leveransen
 
-* Du skal levere ved å sende epost til post@glennbech.no, hust å skrive fult navn
-* Du skal også i eposten skrive hvilken oppgave du har valgt å løse. Det gjør evalueringen raskere.
+* Du må lage en annonym Github bruker - brukernavnet må være utformet slik at det ikke går ann å utlede hvem du er basert på navnet. 
+* Repositories som du lagert må være offentlige
+* Det må ikke være mulig ut ifra koden å identifsere studenten. Det er viktig å ikke benytte @author tags osv.
+* Du skal levere lenke til relevante repositories i wiseflow
+* I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
 * Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
 * Lenke til repositories
 
