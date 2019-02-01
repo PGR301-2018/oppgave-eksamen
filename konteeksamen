@@ -8,61 +8,41 @@ Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for stu
 
 På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
 
-
 ## Krav
 
-Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i GitHib repositories.
-
-Det skal lages minst to repositories,
-
+* Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i GitHib repositories.
+* Du må lage en annonym Github bruker - brukernavnet må være utformet slik at det ikke går ann å utlede hvem du er basert på navnet. 
+* Repositories som du lager må være offentlige
+* Det må ikke være mulig ut ifra koden å identifsere studenten. Det er viktig å ikke benytte @author tags osv.
+* Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
+* I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
+* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
 * Ett til infrastruktur (concourse + terraform)
 * Ett for en eksempel-applikasjon.
-
-Studentene skal sende lenke til disse repositoriene til eksaminator. Dette er den eneste innleveringen som skal gjøres.
 
 Følgende to repositories *kan* brukes som startpunkt, og tilsvarer øvingen vi gjorde i forelesning om monitorering.
 
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
 
-Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten.
+Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten
 
 * Applikasjonen skal bestå av både av et API og en database. Minimalt et REST API med CRUD kapabilitet.   
-* Databasen kan være "in Memory" (h2 osv)- Dvs. Dere trenger ikke tenke på å sette opp database-infrastruktur.
+* Databasen kan være "in Memory" (h2 osv) 
 * Applikasjonen skal bygge med Maven
 * Applikasjonen skal ha enhetstester
 
-## Krav til Infrastruktur
-
-Nødvendig infrastruktur skal opprettes med Terraform. Eksaminator vil manuelt kjøre "terraform apply" 
-
-## Krav til DevOps Pipeline
-
-Det skal lages en CI/CDpipeline for applikasjonen.
-
 ## Evaluering
 
-Karakter settes ved å summere poeng. Poeng oppnås ved å løse ulike aspekter av oppgaven. 
-
-* Hvis en oppgave er løst, men ikke 100% korrekt kan det fortsatt gis poeng. Bruk README filen til å forklare hva som var hansikt å mål, dersom man ikke får til en oppgave.
-
-## Krav til leveranse - og hva eksaminator gjør  
-
-
-Det stilles følgende krav til leveransen
-
-* Du må lage en annonym Github bruker - brukernavnet må være utformet slik at det ikke går ann å utlede hvem du er basert på navnet. 
-* Repositories som du lagert må være offentlige
-* Det må ikke være mulig ut ifra koden å identifsere studenten. Det er viktig å ikke benytte @author tags osv.
-* Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
-* I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
-* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
+Karakter settes ved å summere poeng. Poeng oppnås ved å løse ulike aspekter av oppgaven.  Hvis en oppgave er løst, men ikke 100% korrekt kan det fortsatt gis poeng. Bruk README filen til å forklare hva som var hansikt å mål, dersom man ikke får til en oppgave.
 
 ## Oppgaver
 
 # Basis pipeline (10 poeng)
 
-* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". Korrekt levering gir automatisk 10 poeng. Det anbefales på det sterkeste å gå igjennom Concourse tutorial dersom studenten ikke har jort det tidligere i kurset; https://concoursetutorial.com/
+* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". Det anbefales på det sterkeste å gå igjennom Concourse tutorial dersom studenten ikke har jort det tidligere i kurset; https://concoursetutorial.com/
+* I tillegg skal det lages en CI/CD Pipeline som bygger applikasjonen hver gang det skjer en commit til master branch.
+* Master branch skal være beskyttet mot commits (Protected master branch)
 
 # Docker deployment til Heroku (20 poeng)
 
@@ -72,8 +52,8 @@ Det stilles følgende krav til leveransen
 
 Praktiske oppgaver
 
-* Du skal skrive en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen din.
-* Du skal  utvide Concourse pipeline, til å bygge et Docker image fra Docker filen
+* Du skal skrive en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen.
+* Du skal lage en- eller utvide eksempel Concourse pipeline, til å bygge et Docker image fra Docker filen
 * Docker image skal lastes opp til Heroku Docker Registry
 * Hvis bygget går okey, og det dukker opp en nytt container image i registry- skal dette deployes til CI miljøet ved hjelp av en egen Concourse jobb.
 
@@ -107,103 +87,22 @@ jobs:
 For bare å deploye Docker images som har "passert" bygge-fasen uten feil, bruker vi "passed:" i concourse jobben slik ;
 (Det er det som gjør at jobbene kommer "etter hverandre" i dashbordet)
 
-Hint:
+# Metrics (10 poeng)
 
-# Metrics (20 poeng)
+Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i applikasjonskoden skal logge datapunkter.
 
-Denne oppgaven består av å implementere Metrcis i applikasjonen
+Denne oppgaven består av å implementere Metrcis i applikasjonen - evalueringen blir gjort basert på om Metrics er korrekt implementert på
+en fornuftig måte i applikasjonen. 
 
-Krav til oppgaven;
+Til dette skal applikasjonen bruke [Metrics bibliotektet fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
 
-Metrics skal implementeres ved hjelp av følgende Heroku Addon https://elements.heroku.com/addons/hostedgraphite
-
-Heroku-Addon "hosted graphite" - skal legges til applikasjon ved hjelp av terraform
-
-Terraform kode for å legge til en Add-on  for ett miljø vil se slik ut
-```
-# Create a hosted graphite, and configure the app to use it
-resource "heroku_addon" "hostedgraphite" {
-  app  = "${heroku_app.production.name}"
-  plan = "hostedgraphite"
-}
-```
-
-- Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i applikasjonskoden skal logge datapunkter.
-
-Til dette skal applikasjonen bruke [Metrics bibliotektet fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html
-) å integrere dette i Spring boot applikasjonen ;
-
-```xml
-<dependency>
-      <groupId>io.dropwizard.metrics</groupId>
-      <artifactId>metrics-core</artifactId>
-      <version>4.0.3</version>
-  </dependency>
-
-  <dependency>
-      <groupId>io.dropwizard.metrics</groupId>
-      <artifactId>metrics-graphite</artifactId>
-      <version>4.0.3</version>
-  </dependency>
-```
-
-DropWizard Metrics skal konfigureres til å levere datapunkter til HostedGraphite add-on'en til Heroku - Dere kan legge til en slik klasse, eller noe tilsvarende inn i Spring Boot Applikasjonen for å få til det. se https://metrics.dropwizard.io/4.0.0/manual/graphite.html#manual-graphite
-
-```java
-@Configuration
-public class GraphiteMetricsConfig {
-
-    @Bean
-    public MetricRegistry getRegistry() {
-        return new MetricRegistry();
-    }
-
-    @Bean
-    public GraphiteReporter getReporter(MetricRegistry registry) {
-        Graphite graphite = new Graphite(new InetSocketAddress(System.getenv("GRAPHITE_HOST"), 2003));
-        GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-                .prefixedWith(System.getenv("HOSTEDGRAPHITE_APIKEY"))
-                .convertRatesTo(TimeUnit.SECONDS)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .filter(MetricFilter.ALL)
-                .build(graphite);
-        reporter.start(1, TimeUnit.SECONDS);
-        return reporter;
-    }
-}
-```
-
-Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall forekomster av en hendelse;
-
-```java
-@RequestMapping("/")
-public String welcome() {
-    registry.meter("welcome").mark();
-    return "....";
-}
-```
-
-I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Minst tre av disse;
+Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall forekomster av en hendelse;I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Minst tre av disse;
 
 * meter, gauge, counter, histogram, timer
 
 - Applikasjonen sine endepunkter skal også overvåkes slik at problemer oppdages raskt. Vi har gjort øvinger der StatusCake til dette. Her kan dere gjenbruke terraform kode fra tidligere øving.
 
 - Vi vektlegger 12 Factor app prinsippet "Environment" parity i denne oppgaven. Alle miljøene skal ha egne addons for metrics. Ikke bare for eksempel production. Lokalt miljø skal også produsere metrics - men dette kan dele infrastruktur med CI miljø.
-
-*OBS*
-
-Denne oppgaven har et "høne/egg" problem som ofte kan oppstå når teori møter virkelighet.
-
-Man må kjøre terraform for å få opprettet pipeline, heroku applikasjoner og add-ons.
-
-Før terraform har kjørt, vet man ikke hva GRAPHITE_HOST, og HOSTEDGRAPHITE_APIKEY vil bli. Samtidig trenger man å sette disse verdien inn i miljø-variabler i Heroku via Terraform.
-
-I slike tilfeller må man være pragmatisk, og bruke en tomme Verdier for ukjente parametere første gang man kjører terraform.
-
-Så man man gå inn i UI for HostedGraphite add-on, finne verdien for GRAPHITE_HOST, og HOSTEDGRAPHITE_APIKEY for deretter å sette den- før man kjører det hele på nytt.
-
-Denne type "temporale" avhengigheter er ikke uvanlig, og viser bare at det fortsatt er utfordringer igjen å løse i "infrastruktur som kode" domenet.
 
 
 # Applikasjonslogger (10 poeng)
@@ -216,27 +115,4 @@ På nettsidene til logz.io er det [instruksjoner dere kan følge for å sette op
 
 OBS. Dere må ikke bruke Logz.io som en Heroku-addon. Det koster penger.
 
-For å få en bedre forståelse for ELK stacken, ligger det en docker-compose.yml fil i <infra-repo>/elk. Stå i den katalogen og kjør kommandoen ```docker-compose up -d```
-
-Etter dere har gjort der får dere startet lokalt
-
-- ElasticSearch (http://localhost:9200)
-- Kibana (http://localhost:5601)
-
-Referansedokumentasjon ; https://elk-docker.readthedocs.io/
-
 Eksaminator vil se ut ifra konfigurasjon(logback.xml), og ut ifra applikasjonskode (Log statements) at en slik tjeneste er tatt i bruk.
-
-# Serverless (10 Poeng)
-
-* Det skal leveres en Google Cloud Function, eller AWS Lambda funksjon.
-* Bygging, og deployment av Serverless-komponenten skal gjøres på samme måte som annen kode ved hjelp av concourse.
-* Husk å legge til eksempel på nøkler i credentials_example.yaml!
-
-# Kjente problemer
-
-- Infra jobben i concourse "feiler" dersom den kjører uten at noen endringer i infrastrukturen utføres. Bonuspoeng til den eller de som løser dette!
-- Dockerfile i example-app ; vær obs på ARG JAR_FILE. Prosessen som bygger Docker image (concourse put, til resource docker-image) funker ikke så bra . ENTRYPOINT må trolig også byttes ut om CMD
-
-
-LYKKE TIL !!
