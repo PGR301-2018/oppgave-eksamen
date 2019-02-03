@@ -62,6 +62,29 @@ I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrer
 
 Metrics skal IKKE leveres til en skytjeneste eller liknende. Oppgaven evaulueres på bakgrunn av hvordan de ulike metrikkene er implementert i applikasjonen.
 
+Metrics skal sendes til stdout ved å inkludere følgende spring bean i prosjektet 
+
+```java
+
+@Configuration
+public class ReporterConfig {
+
+    @Bean
+    public MetricRegistry getRegistry() {
+        return new MetricRegistry();
+    }
+
+    @Bean
+    public Reporter getReporter(MetricRegistry registry) {
+        ConsoleReporter reporter = ConsoleReporter.forRegistry(getRegistry())
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        reporter.start(1, TimeUnit.SECONDS);
+        return reporter;
+    }
+}```
+
 # Applikasjonslogger (10 poeng)
 
 Denne oppgaven består av å bruke en tjeneste for innsamling, visualisering og analyse av logger. Dere ska utvide applikasjonen på en slik måte at logger sendes til denne tjenesten.
