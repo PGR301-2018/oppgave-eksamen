@@ -78,7 +78,7 @@ public class ReporterConfig {
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .build();
-        reporter.start(1, TimeUnit.SECONDS);
+        reporter.start(15, TimeUnit.SECONDS);
         return reporter;
     }
 }
