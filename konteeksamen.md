@@ -1,6 +1,5 @@
 # Kontinuasjonseksamensoppgave PGR301 - tilpasset hjemmeeksamen 72 timer. 
 
-
 ## Fra Læreplan
 
 Egenutviklet applikasjon (eller prototype) med tilhørende dokumentasjon: teller 100% av karakteren i emnet. Applikasjonen skal være utviklet, og være vedlikeholdbar, i et DevOps- miljø i skyen. Kildekode, og annen dokumentasjon, skal gjøres tilgjengelig for allmenheten."
@@ -15,10 +14,10 @@ På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel e
 * Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjengelig i offentlige GitHub repositories.
 * Leveransen må være anonym 
 * Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
-* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
+* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
 * Det skal lages ett infrastruktur repository og ett kode-repository for applikasjonen.
 
-Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav. 
+Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav.
 
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
@@ -39,24 +38,18 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Pipeline skal implementeres med Concourse
 * Det skal være en concourse jobb som heter "infra" som oppretter nødvendig infrastruktur i skytjenesten Heroku ved hjelp av terraform-kode.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
-* Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku UI () slik vi har gjort det i øvingene). Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
+* Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku web-grensesnittet
 
 ## Oppgave
 
-# Applikasjon og basis pipeline (10 poeng)
+# Applikasjon og basis pipeline (20 poeng)
 
 * Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". 
 
 # Metrics (20 poeng)
 
 Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i koden skal logge datapunkter. Evalueringen blir gjort basert på om Metrics er korrekt implementert på
-en fornuftig måte.
-
-Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
-
-Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall forekomster av en hendelse.
-I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere følgende forskjellige typer metrics. Med det menes at applikasjonen må være innholdsrik nok til at det gir mening å bruke disse type 
-metrikker. 
+en fornuftig måte. I evalueringen vektlegges derfor at Applikasjonen er funksjonsrik nok til å demonstrere alle nevnte typer metrics;
 
 * Meter 
 * Gauge 
@@ -64,9 +57,11 @@ metrikker.
 * Histogram 
 * Timer
 
-Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout ved å inkludere følgende spring bean i prosjektet 
+Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
 
-```java
+Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet ved å inkludere følgende Spring config bean i prosjektet 
+
+```
 
 @Configuration
 public class ReporterConfig {
