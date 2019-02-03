@@ -41,15 +41,11 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 * Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku UI () slik vi har gjort det i øvingene). Studentene kan fritt velge å implementre kontinuerlig deployment til stage, og fra stage til prod - men det gis ikke poeng for dette.
 
+## Oppgave
 
-## Oppgaver
-
-# Basis pipeline (10 poeng)
+# Applikasjon og basis pipeline (10 poeng)
 
 * Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". 
-* I tillegg skal det lages en Concourse CI/CD Pipeline som bygger applikasjonen og kjører tester hver gang det skjer en commit til master branch.
-* Pipeline skal så sende siste versjon av applikasjonen til skytjenesten Heroku
-* Master branch skal være beskyttet mot commits som ikke skjer via Pull requests. (Protected master branch)
 
 # Metrics (20 poeng)
 
