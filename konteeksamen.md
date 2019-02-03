@@ -40,13 +40,13 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 * Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku web-grensesnittet
 
-## Oppgave
+# Oppgave
 
-# Applikasjon og basis pipeline (20 poeng)
+## Del 1 Applikasjon og basis pipeline (20 poeng)
 
 * Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". 
 
-# Metrics (20 poeng)
+## Del 2 Metrics (20 poeng)
 
 Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i koden skal logge datapunkter. Evalueringen blir gjort basert på om Metrics er korrekt implementert på
 en fornuftig måte. I evalueringen vektlegges derfor at Applikasjonen er funksjonsrik nok til å demonstrere alle nevnte typer metrics;
@@ -62,7 +62,6 @@ Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://
 Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet ved å inkludere følgende Spring config bean i prosjektet 
 
 ```
-
 @Configuration
 public class ReporterConfig {
 
@@ -82,11 +81,10 @@ public class ReporterConfig {
     }
 }```
 
-# Docker/Container deployment av applikasjonen (10 poeng)
+## Del 3 - Docker 
 
 * Det skal skrives en Dockerfil bygger et Container Image av Spring Boot applikasjonen.
 * Eksaminator vil teste applikasjonen ved å gjøre en ```docker build ...``` og ```docker run....```
-
 
 Lykke til !
 
