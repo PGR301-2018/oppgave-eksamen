@@ -40,7 +40,9 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 * Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku web-grensesnittet
 
-# Oppgave
+# Oppgaver
+
+Følgende oppgaver skal løses og ligger til grunn for evaluering. 
 
 ## Del 1 Applikasjon og basis pipeline (20 poeng)
 
