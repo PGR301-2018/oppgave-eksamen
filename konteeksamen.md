@@ -22,7 +22,7 @@ Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav.
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
 
-# Krav til applikasjonen 
+## Krav til applikasjonen 
 
 Applikasjonen må være innholdsrik nok demonstrere DevOps prinsipper og bevise ferdigheter hos studenten. Det anbefales ikke å kun gjøre enkle modifikasjoner på eksempel-appen, men finne et eksempel fra hobby/interesse/ eller et annet prosjekt fra annet fag. 
 
@@ -31,7 +31,7 @@ Applikasjonen må være innholdsrik nok demonstrere DevOps prinsipper og bevise 
 * Applikasjonen skal bygge med Maven
 * Applikasjonen skal ha enhetstester
 
-# Krav til build pipeline
+## Krav til build pipeline
 
 Det skal lages en CI/CDpipeline for applikasjonen.
 
@@ -44,7 +44,7 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 
 ## Del 1 Applikasjon og basis pipeline (20 poeng)
 
-* Innleveringen skal tilfredstille krav nevnt over under "Krav til leveranse". 
+* Innleveringen skal tilfredstille krav nevnt over under "Leveransekrav". 
 
 ## Del 2 Metrics (20 poeng)
 
