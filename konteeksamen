@@ -1,4 +1,5 @@
-# Kontinuasjonseksamensoppgave PGR301
+# Kontinuasjonseksamensoppgave PGR301 - tilpasset hjemmeeksamen 72 timer. 
+
 
 ## Fra Læreplan
 
@@ -11,27 +12,22 @@ På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel e
 ## Krav
 
 * Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjenglig i offentlige GitHub repositories.
-* Du må lage en annonym Github bruker - brukernavnet må være utformet slik at det ikke går ann å utlede hvem du er basert på navnet. Det må ikke være mulig ut ifra koden å identifsere studenten ( @author tags osv ) 
+* Leveransen må være annonym 
 * Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
-* I infra-repository sin README skal det går klart frem hvilke oppgaver du har valgt å løse. Andre instruksjoner skal også ligge der. 
 * Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter som er nødvendig for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
 * Det skal lages ett infrastruktur repository og ett kode-repository for applikasjonen.
 
-Følgende to repositories *kan* brukes som startpunkt, og tilsvarer øvingen vi gjorde i forelesning om monitorering.
+Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav. 
 
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
-Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten. Det anbefales ikke å kun gjøre enkle modifikasjoner på eksempel-appen.
 
+Applikasjonen må være innholdsrik nok demonstrere DevOps-prinisipper og bevise ferdigheter hos studenten. Det anbefales ikke å kun gjøre enkle modifikasjoner på eksempel-appen, men istedet finne et eksempel fra hobby/interesse/ eller et annet prosjekt man har gjort i et annet fag. 
 
 * Applikasjonen skal bestå av både av et API og en database. Minimalt et REST API med CRUD kapabilitet.   
 * Databasen kan være "in Memory" (h2 osv) 
 * Applikasjonen skal bygge med Maven
 * Applikasjonen skal ha enhetstester
-
-## Evaluering
-
-Karakter settes ved å summere poeng. Poeng oppnås ved å løse ulike aspekter av oppgaven.  Hvis en oppgave er løst, men ikke 100% korrekt kan det fortsatt gis poeng. Bruk README filen til å forklare hva som var hansikt å mål, dersom man ikke får til en oppgave.
 
 ## Oppgaver
 
@@ -43,19 +39,20 @@ Karakter settes ved å summere poeng. Poeng oppnås ved å løse ulike aspekter 
 
 # Docker/Container deployment av applikasjonen (10 poeng)
 
-* Skriv en Dockerfil som kan brukes for å bygge et Container Image av Spring Boot applikasjonen.
-* Utvid concourse pipeline, til å bygge et Docker image på hvert bygg
+* Det skal skrives en Dockerfil bygger et Container Image av Spring Boot applikasjonen.
+* Eksaminator vil teste applikasjonen ved å gjøre en ```docker build ...``` og 
+* I denne oppgaven vektlegges DevOps
+
 
 # Metrics (10 poeng)
 
-Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i applikasjonskoden skal logge datapunkter.
-
-Denne oppgaven består av å implementere Metrcis i applikasjonen - evalueringen blir gjort basert på om Metrics er korrekt implementert på
-en fornuftig måte i applikasjonen. 
+Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i koden skal logge datapunkter. Evalueringen blir gjort basert på om Metrics er korrekt implementert på
+en fornuftig måte i applikasjonen.
 
 Til dette skal applikasjonen bruke [Metrics bibliotektet fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
 
-Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall forekomster av en hendelse;I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Med det menes at applikasjonen må være innholdsrik nok til at det gir mening å bruke disse type metrikker. 
+Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall forekomster av en hendelse.
+I evalueringen vektlegges det at man utvider Applikasjonen nok til å demonstrere  forskjellige typer metrics. Med det menes at applikasjonen må være innholdsrik nok til at det gir mening å bruke disse type metrikker. 
 
 * Meter 
 * Gauge 
@@ -63,13 +60,13 @@ Med DropWizard man man for eksempel bruke en "Meter" klasse for å telle antall 
 * Histogram 
 * Timer
 
-Metrics skal IKKE leveres til en skytjenest eller liknende. Oppgaven evaulueres på bakgrunn av hvordan de ulike metrikkene er implementert i applikasjonen.
+Metrics skal IKKE leveres til en skytjeneste eller liknende. Oppgaven evaulueres på bakgrunn av hvordan de ulike metrikkene er implementert i applikasjonen.
 
 # Applikasjonslogger (10 poeng)
 
 Denne oppgaven består av å bruke en tjeneste for innsamling, visualisering og analyse av logger. Dere ska utvide applikasjonen på en slik måte at logger sendes til denne tjenesten.
 
-I oppgaven skla sdere registrere dere på- og bruke tjenesten [Logz.io](https://app.logz.io/) som er en SAAS løsning som tilbyr ELK (ElasticSearch, Logstash, Kibana) Stack der man kan lagre 3GB med lagring i en plan som er gratis.
+I oppgaven skal dere registrere dere på- og bruke tjenesten [Logz.io](https://app.logz.io/) som er en SAAS løsning som tilbyr ELK (ElasticSearch, Logstash, Kibana) Stack der man kan lagre 3GB med lagring i en plan som er gratis.
 
 På nettsidene til logz.io er det [instruksjoner dere kan følge for å sette opp logging i Java  applikasjoner](https://app.logz.io/#/dashboard/data-sources/Java--logbackappender). (Det lønner deg å være logget på hvis dere følger lenken.)
 
