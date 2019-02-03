@@ -82,7 +82,7 @@ public class ReporterConfig {
 }
 ```
 
-## Del 3 - Docker 
+## Del 3 - Docker (10 poeng)
 
 * Det skal skrives en Dockerfil bygger et Container Image av Spring Boot applikasjonen.
 * Eksaminator vil teste applikasjonen ved å gjøre en ```docker build ...``` og ```docker run....```
