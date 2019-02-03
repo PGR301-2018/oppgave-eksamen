@@ -79,7 +79,8 @@ public class ReporterConfig {
         reporter.start(1, TimeUnit.SECONDS);
         return reporter;
     }
-}```
+}
+```
 
 ## Del 3 - Docker 
 
