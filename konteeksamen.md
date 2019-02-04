@@ -61,6 +61,19 @@ Karakter settes basert på oppnådde poeng mot mulig oppnådde poeng.
 
 # Oppgaver
 
+## Kom i gang 
+
+For å komme i gang kan dere følge omtrent samme prosess som vi gjorde på øvingene
+
+* Pass på at concourse kjører- Gå til localhost:8080
+* Lag en fork av repositories
+* Endre <infra>/terraform/variables.tf - velg deg unike verdier for prefix, og pipeline navn
+* Endre credentials.yaml for å matche applikasjonsnavn i variables.tf
+* Lag deploy keys for repositoryene, installer disse, og ta vare på privat key.
+* Modifieser Credentials.yml og legg inn dine hemmeligheter (blant annet deploy keys)
+* Kjør (Der target er det du vanligvis bruker)  
+* Du er nå klar for å begynne på eksamen.       
+
 Følgende oppgaver skal løses og ligger til grunn for evaluering. 
 
 ## Del 1 Applikasjon og basis pipeline (20 poeng)
