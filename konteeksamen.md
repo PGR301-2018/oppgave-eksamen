@@ -43,6 +43,22 @@ Koden i eksempel repository kan brukes som utgangspunkt
 
 - https://github.com/PGR301-2018/exam-infra
 
+# Evaluering 
+
+Eksaminator gjør følgende når han får oppgaven ...
+
+* Lager forks av de inleverte repositories. Lager deploy keys
+* Endrer pipeline.yml, og setter inn sine repositories under "source"   
+* Døper om filen credentials_example.yml til credentials.yml og legger inn sine egne hemmeligheter
+* Endrer variables.tf eller andre filer basert på instrukser i README filen.
+* Sletter eventuelle .terraform katalog og terraform.tfstate fil
+* KJører ```fly -t (min target) set-pipeline -c <infra repo>/concourse/pipeline.yml -l <infra repo>/credentials.yml -p student_name``` i sitt eget Concourse-miljø.
+* Kjører "infra" jobben i Concourse
+* Comitter kode på master branch, og venter på at bygget skal starte av seg selv.
+* Leser README.
+
+Karakter settes basert på oppnådde poeng mot mulig oppnådde poeng.
+
 # Oppgaver
 
 Følgende oppgaver skal løses og ligger til grunn for evaluering. 
