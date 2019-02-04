@@ -8,13 +8,12 @@ Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for stu
 
 På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
 
-
 # Leveransekrav 
 
 * Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjengelig i offentlige GitHub repositories.
 * Leveransen må være anonym 
 * Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
-* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter for pipeline (github_tokens, deploy keys, api keys til diverse tjenester osv).
+* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter for pipeline. 
 * Det skal lages ett infrastruktur repository og ett kode-repository for applikasjonen.
 
 Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav.
@@ -40,6 +39,10 @@ Det skal lages en CI/CDpipeline for applikasjonen.
 * Pipeline skal kontinuerlig deploye hver commit på master branch i applikasjons-repository til CI-miljøet
 * Deployment fra CI-miljø videre til Stage og produksjon skal i utgangspunktet skje manuelt ved at man promoterer applikasjonen i Heroku web-grensesnittet
 
+Koden i eksempel repository kan brukes som utgangspunkt
+
+- https://github.com/PGR301-2018/exam-infra
+
 # Oppgaver
 
 Følgende oppgaver skal løses og ligger til grunn for evaluering. 
@@ -61,7 +64,7 @@ en fornuftig måte. I evalueringen vektlegges derfor at Applikasjonen er funksjo
 
 Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
 
-Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet ved å inkludere følgende Spring config bean i prosjektet 
+Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet ved å inkludere følgende Spring config bean i prosjektet se (https://metrics.dropwizard.io/3.1.0/getting-started/)
 
 ```
 @Configuration
@@ -84,10 +87,9 @@ public class ReporterConfig {
 }
 ```
 
-## Del 3 - Docker (10 poeng)
+## Del 4 - Docker (10 poeng)
 
 * Det skal skrives en Dockerfil bygger et Container Image av Spring Boot applikasjonen.
 * Eksaminator vil teste applikasjonen ved å gjøre en ```docker build ...``` og ```docker run....```
 
 Lykke til !
-
