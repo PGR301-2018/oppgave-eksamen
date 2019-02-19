@@ -1,4 +1,4 @@
-# Kontinuasjonseksamensoppgave PGR301 - tilpasset hjemmeeksamen 72 timer. 
+# Kontinuasjonseksamensoppgave PGR301 - tilpasset hjemmeeksamen 72 timer.
 
 ## Fra Læreplan
 
@@ -8,27 +8,27 @@ Siden et kontinuerlig kjørende DevOps-miljø kan være kostnadsbærende for stu
 
 På den måten kan de som måtte ønske å ta løsningen i bruk ( for eksempel eksaminator ) bruke egen infrastruktur (og da ta kostnaden for drift av miljøet)
 
-# Leveransekrav 
+# Leveransekrav
 
-* Applikasjonen og tilhørende DevOps infrastruktur skal gjøres tilgjengelig i offentlige GitHub repositories.
+* Applikasjonen og tilhørende DevOps-infrastruktur skal gjøres tilgjengelig i offentlige GitHub repositories.
+* Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub
 * Det skal være en README som forklarer hva man må gjøre for å få en fungerende pipeline på lokal maskin.
-* Svar spørsmål i oppgave 5 leveres i README. 
-* Leveransen må være anonym 
-* Du skal levere et dokument (tekstfil) i wiseflow som lenker til relevante repositories i GitHub 
-* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter for pipeline. 
-* Det skal lages ett infrastruktur repository og ett kode-repository for applikasjonen.
+* Svar spørsmål i oppgave 5 leveres i README.
+* Leveransen må være anonym
+* Infra-repository skal inneholde en credentials_example.yml som eksemplifiserer nødvendige hemmeligheter for pipeline.
+* Det skal lages ett repository for infrastruktur, og ett kode-repository for applikasjonen.
 
 Følgende to repositories *kan* brukes som startpunkt. Dette er ikke et krav.
 
 - https://github.com/PGR301-2018/exam-infra
 - https://github.com/PGR301-2018/exam-app
 
-## Krav til applikasjonen 
+## Krav til applikasjonen
 
 Applikasjonen må være innholdsrik nok demonstrere DevOps prinsipper og bevise ferdigheter hos studenten. Det anbefales ikke å kun gjøre enkle modifikasjoner på eksempel-appen, men finne et eksempel fra hobby/interesse/ eller et annet prosjekt fra annet fag. Applikasjonen må ha "substans" nok for å eksemplifisere.
 
 * Applikasjonen skal bestå av både av et API og en database. Minimalt et REST API med CRUD kapabilitet.   
-* Databasen kan være "in Memory" (h2 osv) 
+* Databasen kan være "in Memory" (h2 osv)
 * Applikasjonen skal bygge med Maven
 * Applikasjonen skal ha enhetstester
 
@@ -46,7 +46,7 @@ Koden i eksempel repository kan brukes som utgangspunkt
 
 - https://github.com/PGR301-2018/exam-infra
 
-# Evaluering 
+# Evaluering
 
 Eksaminator gjør følgende når han får oppgaven ...
 
@@ -64,7 +64,7 @@ Karakter settes basert på oppnådde poeng mot mulig oppnådde poeng.
 
 # Oppgaver
 
-## Kom i gang 
+## Kom i gang
 
 For å komme i gang kan dere følge omtrent samme prosess som vi gjorde på øvingene
 
@@ -74,31 +74,31 @@ For å komme i gang kan dere følge omtrent samme prosess som vi gjorde på øvi
 * Endre credentials.yaml for å matche applikasjonsnavn i variables.tf
 * Lag deploy keys for repositoryene, installer disse, og ta vare på privat key.
 * Modifieser Credentials.yml og legg inn dine hemmeligheter (blant annet deploy keys)
-* Kjør ```fly ...``` for å installere pipeline. 
+* Kjør ```fly ...``` for å installere pipeline.
 * Du er nå klar for å begynne på eksamen.       
 
-Følgende oppgaver skal løses og ligger til grunn for evaluering. 
+Følgende oppgaver skal løses og ligger til grunn for evaluering.
 
 ## Del 1 Applikasjon og basis pipeline (20 poeng)
 
-* Innleveringen skal tilfredstille krav nevnt over under "Leveransekrav". 
+* Innleveringen skal tilfredstille krav nevnt over under "Leveransekrav".
 
 ## Del 2 Metrics (20 poeng)
 
 Applikasjonen skal logge egendefinerte metrics. Med det menes at man på valgte steder i koden skal logge datapunkter. Evalueringen blir gjort basert på om Metrics er korrekt implementert på
 en fornuftig måte. I evalueringen vektlegges derfor at Applikasjonen er funksjonsrik nok til å demonstrere alle nevnte typer metrics;
 
-* Meter 
-* Gauge 
-* Counter 
-* Histogram 
+* Meter
+* Gauge
+* Counter
+* Histogram
 * Timer
 
 Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://metrics.dropwizard.io/4.0.0/getting-started.html) å integrere dette i Spring boot applikasjonen ;
 
 Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet.
 
-Studentene kan også bruke Rammeverket Micrometer om ønskelig. 
+Studentene kan også bruke Rammeverket Micrometer om ønskelig.
 
 ## Del 4 - Docker (10 poeng)
 
@@ -107,16 +107,16 @@ Studentene kan også bruke Rammeverket Micrometer om ønskelig.
 
 ## Del 5 - DevOps Teori (10 poeng)
 
-I forelesningene har vi snakket om "The 12 factor app"(https://12factor.net/), og vi har i øvingene lagt spesiell vekt på 
+I forelesningene har vi snakket om "The 12 factor app"(https://12factor.net/), og vi har i øvingene lagt spesiell vekt på
 
 * III. Config
 * X. Dev/prod parity
 * XI. Logs
 
-For hvert prinsipp; 
+For hvert prinsipp;
 
-- beskriv hva dette betyr i praksis for deg som utvikler, og viktigheten av prinsippet. 
-- Forklar, gjerne med kodeeksempler, hva prinsippet betyr i praksis for koden man skriver og rammeverkene man bruker. Bruk også gjerne Anti-eksempler, altså hvordan man ikke skal gjøre det for å eksemplifisere. 
-- Referer gjerne til Applikasjonskoden levert i denne besvarelsen 
+- beskriv hva dette betyr i praksis for deg som utvikler, og viktigheten av prinsippet.
+- Forklar, gjerne med kodeeksempler, hva prinsippet betyr i praksis for koden man skriver og rammeverkene man bruker. Bruk også gjerne Anti-eksempler, altså hvordan man ikke skal gjøre det for å eksemplifisere.
+- Referer gjerne til Applikasjonskoden levert i denne besvarelsen
 
 Lykke til !
