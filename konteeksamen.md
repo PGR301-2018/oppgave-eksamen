@@ -98,7 +98,7 @@ Til dette skal applikasjonen bruke [Metrics biblioteket fra Dropwizard](https://
 
 Metrics skal ikke leveres til en skytjeneste eller liknende. Metrics skal i stedet sendes til stdout/consollet.
 
-Studentene kan også bruke Spring Boot2 og Rammeverket Micrometer om ønskelig. 
+Studentene kan også bruke Rammeverket Micrometer om ønskelig. 
 
 ## Del 4 - Docker (10 poeng)
 
